@@ -1,0 +1,12 @@
+app:
+  key: a9788bf6c5be75ef89ac136c9484667bc8ba5e73f5bb6a739aa426c4cc9d55e8
+database:
+  host: localhost
+  port: 5432
+  user: postgres
+  password: password
+  database: ecommerce-admins-test
+grpc:
+  host: 0.0.0.0
+  port: 50051
+  timeout: 30

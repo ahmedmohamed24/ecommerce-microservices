@@ -1,0 +1,47 @@
+syntax = "proto3";
+option go_package = ".";
+package proto_admin_v1;
+
+service AdminsService {
+  rpc GetAdmin(GetAdminRequest) returns (GetAdminResponse) {}
+  rpc UpdateAdmin(UpdateAdminRequest) returns (UpdateAdminResponse) {}
+  rpc GenerateAuthToken(GenerateAuthTokenRequest)
+      returns (GenerateAuthTokenResponse) {}
+  rpc RefreshAuthToken(RefreshAuthTokenRequest)
+      returns (RefreshAuthTokenResponse) {}
+}
+
+message GetAdminRequest { string auth_token = 1; }
+message GetAdminResponse {
+  int64 id = 1;
+  string email = 2;
+  string name = 3;
+  int64 created_at = 4;
+  int64 updated_at = 5;
+}
+message UpdateAdminRequest {
+  string auth_token = 1;
+  string email = 2;
+  string name = 3;
+  string password = 4;
+}
+message UpdateAdminResponse {
+  int64 id = 1;
+  string email = 2;
+  string name = 3;
+  int64 created_at = 4;
+  int64 updated_at = 5;
+}
+message GenerateAuthTokenRequest {
+  string email = 1;
+  string password = 2;
+}
+message GenerateAuthTokenResponse {
+  string auth_token = 1;
+  string refresh_token = 2;
+}
+message RefreshAuthTokenRequest {
+  string refresh_token = 1;
+  int64 admin_id = 2;
+}
+message RefreshAuthTokenResponse { string auth_token = 1; }

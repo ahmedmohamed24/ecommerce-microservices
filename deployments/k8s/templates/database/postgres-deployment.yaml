@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pgql-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: pgsql
+          image: {{ .Values.pgsql.image }}
+          env:
+            - name: POSTGRES_USER
+              value: "postgres"
+            - name: POSTGRES_PASSWORD
+              value: "{{ .Values.pgsql.password }}"
+          volumeMounts:
+            - name: init-db
+              mountPath: /docker-entrypoint-initdb.d/init-db.sh
+              subPath: init-db.sh
+              readOnly: true
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql/data
+          ports:
+            - containerPort: {{ .Values.pgsql.port }}
+      volumes:
+        - name: init-db
+          configMap:
+            name: postgres-initdb-config
+        - name: postgres-storage
+          persistentVolumeClaim:
+            claimName: postgres-pvc
+
+

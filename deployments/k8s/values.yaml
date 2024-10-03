@@ -1,0 +1,50 @@
+pgsql:
+  image: postgres:13
+  port: 5432
+  user: postgres
+  password: password
+
+admins:
+  image: admin:1.13.0
+  replicas: 1
+  database: "admins"
+  grpc_host: 0.0.0.0
+  grpc_port: 50051
+api_gateway:
+  image: gateway:1.13.0
+  replicas: 1
+  grpc_host: 0.0.0.0
+  grpc_port: 50052
+customers:
+  image: customer:1.13.0
+  replicas: 1
+  database: "customers"
+  grpc_host: 0.0.0.0
+  grpc_port: 50053
+orders:
+  image: order:1.13.0
+  replicas: 1
+  database: "orders"
+  grpc_host: 0.0.0.0
+  grpc_port: 50054
+payments:
+  image: payment:1.13.0
+  replicas: 1
+  database: "payments"
+  grpc_host: 0.0.0.0
+  grpc_port: 50055
+products:
+  image: product:1.13.0
+  replicas: 1
+  database: "products"
+  grpc_host: 0.0.0.0
+  grpc_port: 50056
+  http_host: 0.0.0.0
+  http_port: 50057
+
+rabbitmq:
+  image: rabbitmq:3-management
+  username: user
+  password: password
+  amqp_protocol_port: 5672
+  amqp_interface_port: 15672

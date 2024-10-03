@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: admins
+spec:
+  selector:
+    app: admins
+  ports:
+    - protocol: TCP
+      port: {{ .Values.admins.grpc_port }}
+      targetPort: {{ .Values.admins.grpc_port }}

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: payments
+spec:
+  selector:
+    app: payments
+  ports:
+    - protocol: TCP
+      port: {{ .Values.payments.grpc_port }}
+      targetPort: {{ .Values.payments.grpc_port }}

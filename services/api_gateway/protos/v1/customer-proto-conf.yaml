@@ -1,0 +1,32 @@
+type: google.api.Service
+config_version: 3
+http:
+  rules:
+    - selector: proto_customer_v1.CustomerService.GetCustomer
+      get: /api/v1/customer/{id}
+    - selector: proto_customer_v1.CustomerService.CreateCustomer
+      post: /api/v1/customer
+      body: "*"
+    - selector: proto_customer_v1.CustomerService.UpdateCustomer
+      put: /api/v1/customer/{id}
+      body: "*"
+    - selector: proto_customer_v1.CustomerService.GenerateAuthToken
+      post: /api/v1/customer/auth
+      body: "*"
+    - selector: proto_customer_v1.CustomerService.RefreshAuthToken
+      post: /api/v1/customer/refresh_token
+      body: "*"
+    - selector: proto_customer_v1.CustomerService.GetAuthCustomer
+      post: /api/v1/customer/auth/customer
+      body: "*"
+
+openapiOptions:
+  - file: protos/v1/customer-proto-conf.yaml
+    description: "Customer Service V1"
+    schemes:
+      - http
+    consumes:
+      - application/json
+    produces:
+      - application/json
+    version: 1.0.0

@@ -1,0 +1,20 @@
+type: google.api.Service
+config_version: 3
+http:
+  rules:
+    - selector: proto_order_v1.OrderService.CreateOrder
+      post: /api/v1/order
+      body: "*"
+    - selector: proto_order_v1.OrderService.GetOrderDetails
+      get: /api/v1/order/{order_id}
+
+openapiOptions:
+  - file: protos/v1/order-proto-conf.yaml
+    description: "Order Service V1"
+    schemes:
+      - http
+    consumes:
+      - application/json
+    produces:
+      - application/json
+    version: 1.0.0

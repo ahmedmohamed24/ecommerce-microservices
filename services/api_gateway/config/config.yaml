@@ -1,0 +1,18 @@
+admins:
+  grpc_host: admins
+  grpc_port: 50051
+api_gateway:
+  grpc_host: 0.0.0.0
+  grpc_port: 50052
+customers:
+  grpc_host: customers
+  grpc_port: 50053
+orders:
+  grpc_host: orders
+  grpc_port: 50054
+payments:
+  grpc_host: payments
+  grpc_port: 50055
+products:
+  grpc_host: products
+  grpc_port: 50056

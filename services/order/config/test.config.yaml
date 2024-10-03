@@ -1,0 +1,20 @@
+service-name: order
+server:
+  version: 1
+  host: 0.0.0.0
+  port: 8085
+  timeout: 30
+database:
+  host: pgsql
+  port: 50054
+  user: postgres
+  password: password
+  name: "orders"
+
+services:
+  product:
+    host: 0.0.0.0
+    port: 50056
+  customer:
+    host: 0.0.0.0
+    port: 50053

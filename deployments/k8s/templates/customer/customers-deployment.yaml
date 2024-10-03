@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customers
+spec:
+  replicas: {{ .Values.customers.replicas }}
+  selector:
+    matchLabels:
+      app: customers
+  template:
+    metadata:
+      labels:
+        app: customers
+    spec:
+      containers:
+        - name: customers
+          image: {{ .Values.customers.image }}
+          ports:
+            - containerPort: {{ .Values.customers.grpc_port }}

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: admins
+spec:
+  replicas: {{ .Values.admins.replicas }}
+  selector:
+    matchLabels:
+      app: admins
+  template:
+    metadata:
+      labels:
+        app: admins
+    spec:
+      containers:
+        - name: admins
+          image: {{ .Values.admins.image }}
+          ports:
+            - containerPort: {{ .Values.admins.grpc_port }}

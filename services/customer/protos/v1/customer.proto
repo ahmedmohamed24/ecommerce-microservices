@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package proto_customer_v1;
+option go_package = ".";
+
+service CustomerService {
+  rpc GetCustomer(GetCustomerRequest) returns (GetCustomerResponse);
+  rpc CreateCustomer(CreateCustomerRequest) returns (CreateCustomerResponse);
+  rpc UpdateCustomer(UpdateCustomerRequest) returns (UpdateCustomerResponse);
+  rpc GenerateAuthToken(GenerateAuthTokenRequest)
+      returns (GenerateAuthTokenResponse);
+  rpc RefreshAuthToken(RefreshAuthTokenRequest)
+      returns (RefreshAuthTokenResponse);
+  rpc GetAuthCustomer(GetAuthCustomerRequest) returns (GetAuthCustomerResponse);
+}
+message GetCustomerRequest { uint32 id = 1; }
+message GetCustomerResponse { Customer customer = 1; }
+message CreateCustomerRequest {
+  string name = 1;
+  string email = 2;
+  string password = 3;
+  string mobile = 4;
+}
+message CreateCustomerResponse { Customer customer = 1; }
+message UpdateCustomerRequest {
+
+  uint32 id = 1;
+  string name = 2;
+  string email = 3;
+  string password = 4;
+  string mobile = 5;
+}
+message UpdateCustomerResponse { Customer customer = 1; }
+message GenerateAuthTokenRequest {
+  string email = 1;
+  string password = 2;
+}
+message GenerateAuthTokenResponse {
+  string token = 1;
+  string refresh_token = 2;
+}
+message RefreshAuthTokenRequest { string refresh_token = 1; }
+message RefreshAuthTokenResponse { string token = 1; }
+
+message Customer {
+  uint32 id = 1;
+  string name = 2;
+  string email = 3;
+  string password = 4;
+  string mobile = 5;
+  string created_at = 6;
+  string updated_at = 7;
+}
+message GetAuthCustomerRequest { string token = 1; }
+message GetAuthCustomerResponse { Customer customer = 1; }

@@ -1,0 +1,23 @@
+type: google.api.Service
+config_version: 3
+http:
+  rules:
+    - selector: proto_payment_v1.PaymentService.GeneratePaymentLink
+      get: /api/v1/payment/stripe/generate_session_link
+    - selector: proto_payment_v1.PaymentService.GetPaymentOperation
+      get: /api/v1/payment/stripe/{order_id}
+    - selector: proto_payment_v1.PaymentService.SuccessPaymentOperation
+      get: /api/v1/payment/stripe/callback/success
+    - selector: proto_payment_v1.PaymentService.FailPaymentOperation
+      get: /api/v1/payment/stripe/callback/cancel
+
+openapiOptions:
+  - file: protos/v1/payment-proto-conf.yaml
+    description: "Payment Service"
+    schemes:
+      - http
+    consumes:
+      - application/json
+    produces:
+      - application/json
+    version: 1.0.0

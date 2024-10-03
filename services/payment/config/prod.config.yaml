@@ -1,0 +1,22 @@
+server:
+  host: 0.0.0.0
+  port: 50055
+  timeout: 10
+database:
+  host: pgsql
+  port: 5432
+  user: "postgres"
+  password: "password"
+  database: "payments"
+
+services:
+  amqp:
+    host: "rabbitmq"
+    port: 5672
+    user: "user"
+    password: "password"
+  stripe:
+    mode: sandbox
+    key: "sk_test_51PuD1yRvd6smbwUrwjkQpuJVRJoVj1Zo9F0kLM9zRN39eAFZ1BKXOIIlJAByFLjbqnXMYDcx8uITNRWgHkkEcoU300Y7UTp07h"
+    success_url: "http://localhost:50052/api/v1/payment/stripe/callback/success"
+    cancel_url: "http://localhost:50052/api/v1/payment/stripe/callback/cancel"

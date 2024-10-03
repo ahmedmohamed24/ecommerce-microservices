@@ -1,0 +1,42 @@
+syntax = "proto3";
+option go_package = ".";
+package proto_payment_v1;
+import "google/protobuf/struct.proto";
+import "google/api/httpbody.proto";
+
+service PaymentService {
+  rpc GeneratePaymentLink(GeneratePaymentLinkRequest)
+      returns (GeneratePaymentLinkResponse) {}
+  rpc GetPaymentOperation(GetPaymentOperationRequest)
+      returns (GetPaymentOperationResponse) {}
+  rpc SuccessPaymentOperation(SuccessPaymentOperationRequest)
+      returns (google.api.HttpBody) {}
+  rpc FailPaymentOperation(FailPaymentOperationRequest)
+      returns (google.api.HttpBody) {}
+}
+message Product {
+  uint32 quantity = 1;
+  float amount = 2;
+  string name = 3;
+  string description = 4;
+}
+message GeneratePaymentLinkRequest {
+  string order_id = 1;
+  repeated Product products = 2;
+}
+message GeneratePaymentLinkResponse { string payment_link = 1; }
+
+message GetPaymentOperationRequest { uint64 order_id = 1; }
+message GetPaymentOperationResponse {
+  uint32 order_id = 1;
+  uint32 payment_id = 2;
+  float paid_amount = 3;
+  string card_last_4 = 4;
+  google.protobuf.Struct payment_info = 5;
+  int64 created_at = 6;
+  int64 updated_at = 7;
+  string payment_method = 8;
+}
+message SuccessPaymentOperationRequest { string session = 1; }
+message FailPaymentOperationRequest { string session = 1; }
+message PaymentDoneSuccessfully { uint32 order_id = 1; }

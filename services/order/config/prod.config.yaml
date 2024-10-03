@@ -1,0 +1,28 @@
+service-name: order
+server:
+  version: 1
+  host: 0.0.0.0
+  port: 50054
+  timeout: 30
+database:
+  host: pgsql
+  port: 5432
+  user: postgres
+  password: password
+  name: "orders"
+
+services:
+  product:
+    host: products
+    port: 50056
+  customer:
+    host: customers
+    port: 50053
+  payment:
+    host: payments
+    port: 50055
+  amqp:
+    host: "rabbitmq"
+    port: 5672
+    user: "user"
+    password: "password"

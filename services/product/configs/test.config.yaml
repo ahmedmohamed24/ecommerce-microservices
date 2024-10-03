@@ -1,0 +1,27 @@
+storage:
+  path: "storage"
+database:
+  host: pgsql
+  port: 5432
+  user: postgres
+  password: password
+  db: products
+grpc_server:
+  host: 0.0.0.0
+  port: 50056
+  timeout: 30
+file_server:
+  host: 0.0.0.0
+  port: 8081
+  timeout: 30
+paginator:
+  limit: 20
+slack:
+  webhook_url: ""
+  channel: "testing"
+  username: "incoming-webhook"
+
+services:
+  admin:
+    host: "0.0.0.0"
+    port: 50051

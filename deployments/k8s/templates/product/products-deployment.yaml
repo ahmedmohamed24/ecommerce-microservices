@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: products
+spec:
+  replicas: {{ .Values.products.replicas }}
+  selector:
+    matchLabels:
+      app: products
+  template:
+    metadata:
+      labels:
+        app: products
+    spec:
+      containers:
+        - name: products
+          image: {{ .Values.products.image }}
+          ports:
+            - containerPort: {{ .Values.products.grpc_port }}
+            - containerPort: {{ .Values.products.http_port }}

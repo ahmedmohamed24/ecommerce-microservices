@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: products
+spec:
+  selector:
+    app: products
+  ports:
+    - name: grpc
+      protocol: TCP
+      port: {{ .Values.products.grpc_port }}
+      targetPort: {{ .Values.products.grpc_port }}
+    - name: http
+      protocol: TCP
+      port: {{ .Values.products.http_port }}
+      targetPort: {{ .Values.products.http_port }}

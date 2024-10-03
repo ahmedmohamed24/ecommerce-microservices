@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-initdb-config
+data:
+  init-db.sh: |
+    #!/bin/bash
+    set -e
+    databases=("{{  .Values.admins.database  }}" "{{  .Values.customers.database  }}" "{{  .Values.orders.database  }}" "{{  .Values.payments.database  }}" "{{  .Values.products.database  }}")
+    for db in "${databases[@]}"; do
+      echo "Checking if database $db exists..."
+      psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" -tc "SELECT 1 FROM pg_database WHERE datname = '$db'" | grep -q 1 || psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" -c "CREATE DATABASE $db;"
+      echo "Database $db created or already exists."
+    done

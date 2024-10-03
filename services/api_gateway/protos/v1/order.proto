@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package proto_order_v1;
+option go_package = ".";
+
+service OrderService {
+  rpc CreateOrder(CreateOrderRequest) returns (CreateOrderResponse);
+  rpc GetOrderDetails(GetOrderDetailsRequest) returns (GetOrderDetailsResponse);
+}
+message OrderProductRequest {
+  uint32 product_id = 1;
+  uint32 quantity = 2;
+}
+
+message CreateOrderRequest { repeated OrderProductRequest order_products = 1; }
+
+message CreateOrderResponse {
+  uint32 order_id = 1;
+  string payment_link = 2;
+}
+
+message OrderProductResponse {
+  uint32 id = 1;
+  string name = 2;
+  uint32 quantity = 3;
+  uint32 price = 4;
+}
+
+message GetOrderDetailsRequest { uint32 order_id = 1; }
+message GetOrderDetailsResponse {
+  uint32 order_id = 1;
+  float total_price = 2;
+  uint32 status_id = 3;
+  string status = 4;
+  repeated OrderProductResponse order_products = 5;
+  int64 created_at = 6;
+  int64 updated_at = 7;
+}

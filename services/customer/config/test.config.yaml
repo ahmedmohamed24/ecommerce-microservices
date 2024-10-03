@@ -1,0 +1,14 @@
+service-name: "customers"
+mode: "dev"
+app_key: "/BlQ0sEsz7MX4ovi"
+server:
+  version: 1
+  host: 0.0.0.0
+  port: 50053
+  timeout: 1000
+database:
+  host: pgsql
+  port: 5432
+  user: "postgres"
+  password: "password"
+  database: "customers"

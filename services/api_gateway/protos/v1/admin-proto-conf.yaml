@@ -1,0 +1,16 @@
+type: google.api.Service
+config_version: 3
+
+http:
+  rules:
+    - selector: proto_admin_v1.AdminsService.GetAdmin
+      get: /api/v1/admin
+    - selector: proto_admin_v1.AdminsService.UpdateAdmin
+      put: /api/v1/admin
+      body: "*"
+    - selector: proto_admin_v1.AdminsService.GenerateAuthToken
+      post: /api/v1/admin/login
+      body: "*"
+    - selector: proto_admin_v1.AdminsService.RefreshAuthToken
+      post: /api/v1/admin/refresh_token
+      body: "*"

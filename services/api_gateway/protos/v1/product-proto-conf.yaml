@@ -1,0 +1,26 @@
+type: google.api.Service
+config_version: 3
+http:
+  rules:
+    - selector: proto_product_v1.ProductService.ListProducts
+      get: /api/v1/product
+    - selector: proto_product_v1.ProductService.GetProduct
+      get: /api/v1/product/{id}
+    - selector: proto_product_v1.ProductService.CreateProduct
+      post: /api/v1/product
+      body: "*"
+    - selector: proto_product_v1.ProductService.UpdateProduct
+      put: /api/v1/product/{id}
+      body: "*"
+    - selector: proto_product_v1.ProductService.DeleteProduct
+      delete: /api/v1/product/{id}
+openapiOptions:
+  - file: protos/v1/product-proto-conf.yaml
+    description: "Product Service"
+    schemes:
+      - http
+    consumes:
+      - application/json
+    produces:
+      - application/json
+    version: 1.0.0

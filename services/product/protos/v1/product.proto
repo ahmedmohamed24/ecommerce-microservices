@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+package proto_product_v1;
+option go_package = ".";
+import "google/protobuf/empty.proto";
+
+message ProductImageRequest {
+  bytes chunk = 1;
+  string original_name = 2;
+  string mime_type = 3;
+  string extension = 4;
+  uint64 file_size = 5;
+  bool is_thumbnail = 6;
+  uint32 product_id = 7;
+}
+message CreateProductRequest {
+  string title = 1;
+  float price = 2;
+  string description = 3;
+  uint32 available_units = 4;
+}
+message ProductImageResponse {
+  uint32 id = 1;
+  string path = 2;
+  bool is_thumbnail = 3;
+}
+message CreateProductResponse { uint32 id = 1; }
+message GetProductRequest { uint32 id = 1; }
+message GetProductResponse {
+  uint32 id = 1;
+  string title = 2;
+  float price = 3;
+  string description = 4;
+  uint32 available_units = 5;
+  int64 created_at = 6;
+  int64 updated_at = 7;
+  repeated ProductImageResponse images = 8;
+}
+message ListProductsRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+}
+message ListProductsResponse {
+  repeated GetProductResponse products = 1;
+  uint32 total = 2;
+  uint32 page = 3;
+}
+message UpdateProductRequest {
+  uint32 id = 1;
+  string title = 2;
+  float price = 3;
+  string description = 4;
+  uint32 available_units = 5;
+  repeated ProductImageRequest images = 6;
+}
+message DeleteProductRequest { uint32 id = 1; }
+message DeleteProductImageRequest { uint32 id = 1; }
+message UpdateProductQuantityRequest {
+  uint32 product_id = 1;
+  uint32 quantity = 2;
+}
+
+service ProductService {
+  rpc CreateProduct(CreateProductRequest) returns (CreateProductResponse) {}
+
+  rpc GetProduct(GetProductRequest) returns (GetProductResponse) {}
+
+  rpc ListProducts(ListProductsRequest) returns (ListProductsResponse) {}
+
+  rpc UpdateProduct(UpdateProductRequest) returns (google.protobuf.Empty) {}
+
+  rpc DeleteProduct(DeleteProductRequest) returns (google.protobuf.Empty) {}
+
+  rpc UploadProductImage(stream ProductImageRequest)
+      returns (ProductImageResponse) {}
+
+  rpc DeleteProductImage(DeleteProductImageRequest)
+      returns (google.protobuf.Empty) {}
+  rpc UpdateProductQuantity(UpdateProductQuantityRequest)
+      returns (google.protobuf.Empty) {}
+}
