@@ -9,7 +9,8 @@ import (
 	"net/http"
 	"path/filepath"
 
-	protoV1 "github.com/ahmedmohamed24/ecommerce-microservices/order/protos/v1/gen/product"
+	"github.com/ahmedmohamed24/ecommerce-microservices/gateway/config"
+	protoV1 "github.com/ahmedmohamed24/ecommerce-microservices/gateway/protos/v1/gen/product"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
@@ -28,7 +29,12 @@ func UploadProductImage(w http.ResponseWriter, r *http.Request, pathParams map[s
 		return
 	}
 	defer f.Close()
-	client, err := grpc.NewClient("localhost:9092", grpc.WithTransportCredentials(insecure.NewCredentials()))
+	cfg, err := config.New()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	client, err := grpc.NewClient(fmt.Sprintf("%v:%v", cfg.ProductService.Host, cfg.ProductService.Port), grpc.WithTransportCredentials(insecure.NewCredentials()))
 	clientStream, err := protoV1.NewProductServiceClient(client).UploadProductImage(r.Context())
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)

@@ -1,4 +1,4 @@
-module github.com/ahmedmohamed24/ecommerce-microservices/order
+module github.com/ahmedmohamed24/ecommerce-microservices/gateway
 
 go 1.23.1
 
