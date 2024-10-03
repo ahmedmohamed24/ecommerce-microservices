@@ -55,6 +55,6 @@
 
 > Using Minikube, Helm and docker
 
-1. git clone [git@github.com:ahmedmohamed24/ecommerce-microservices.git](git@github.com:ahmedmohamed24/ecommerce-microservices.git)
+1. git clone `https://github.com/ahmedmohamed24/ecommerce-microservices.git`
 2. `cd ecommerce-microservices/`
 3. `make minikube-k8s version=1.0.0`
